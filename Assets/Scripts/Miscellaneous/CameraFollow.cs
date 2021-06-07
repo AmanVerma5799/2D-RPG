@@ -9,12 +9,19 @@ public class CameraFollow : MonoBehaviour
     public Transform target;
 
     public Vector2 minPosition, maxPosition;
+    public VectorValue camMin, camMax;
 
     private Animator cameraAnimator;
 
     private void Awake()
     {
         cameraAnimator = GetComponent<Animator>();
+    }
+
+    private void Start()
+    {
+        minPosition = camMin.initialValue;
+        maxPosition = camMax.initialValue;
     }
 
     void LateUpdate()

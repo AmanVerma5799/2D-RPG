@@ -15,10 +15,17 @@ public class Enemy : MonoBehaviour
     public string enemyName;
     public float moveSpeed;
 
+    public Vector2 homePosition;
+
     public FloatValue maxHealth;
 
     private void Start()
     {
         health = maxHealth.initialValue;
+    }
+
+    private void OnEnable()
+    {
+        transform.position = homePosition;
     }
 }

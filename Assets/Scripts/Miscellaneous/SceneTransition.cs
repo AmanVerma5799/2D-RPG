@@ -15,6 +15,9 @@ public class SceneTransition : MonoBehaviour
 
     public float fadeWait;
 
+    public Vector2 newCameraMin, newCameraMax;
+    public VectorValue cameraMin, cameraMax;
+
     private void Awake()
     {
         if(fadeInPanel != null)
@@ -29,6 +32,7 @@ public class SceneTransition : MonoBehaviour
         if(other.CompareTag("Player") && !other.isTrigger)
         {
             playerMemory.initialValue = playerPosition;
+
             StartCoroutine(FadeCoroutine());
         }
     }
@@ -41,11 +45,20 @@ public class SceneTransition : MonoBehaviour
         }
 
         yield return new WaitForSeconds(fadeWait);
+
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneToLoad);
+
+        ResetCameraBonds();
 
         while(!asyncOperation.isDone)
         {
             yield return null;
         }
+    }
+
+    public void ResetCameraBonds()
+    {
+        cameraMax.initialValue = newCameraMax;
+        cameraMin.initialValue = newCameraMin;
     }
 }

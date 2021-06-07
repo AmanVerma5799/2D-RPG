@@ -8,7 +8,9 @@ public class TreasureChest : Interactables
     public Item content;
     public Inventory playerInventory;
 
-    private bool isOpen;
+    [SerializeField] private bool isOpen;
+
+    public BoolValue alreadyOpened;
 
     public Signal raiseItem;
 
@@ -20,6 +22,16 @@ public class TreasureChest : Interactables
     private void Awake()
     {
         chestAnimator = GetComponentInParent<Animator>();
+    }
+
+    private void Start()
+    {
+        isOpen = alreadyOpened.runtimeValue;
+
+        if(isOpen)
+        {
+            chestAnimator.SetBool("isOpened", true);
+        }
     }
 
     private void Update()
@@ -51,6 +63,8 @@ public class TreasureChest : Interactables
         chestAnimator.SetBool("isOpened", true);
 
         isOpen = true;
+
+        alreadyOpened.runtimeValue = isOpen;
     }
 
     public void ChestOpened()

@@ -6,19 +6,19 @@ public class Pot : MonoBehaviour
 {
     private Animator potAnimator;
 
+    //public GameObject coin;
+
     void Awake()
     {
         potAnimator = GetComponent<Animator>();
     }
 
-    void Update()
-    {
-        
-    }
-
     public void Smash()
     {
         potAnimator.SetBool("smash", true);
+
+        //GameObject coinDrop = Instantiate(coin, transform.position + buffer, Quaternion.identity);
+
         StartCoroutine(DisableObject());
     }
 

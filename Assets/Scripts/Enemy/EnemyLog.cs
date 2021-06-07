@@ -51,13 +51,13 @@ public class EnemyLog : Enemy
             }
         }
 
-        else
+        else if(distance > chaseRadius)
         {
             logAnimator.SetBool("setAwake", false); 
         }
     }
 
-    private void ChangeState(EnemyState newState)
+    public void ChangeState(EnemyState newState)
     {
         if(currentState != newState)
         {
