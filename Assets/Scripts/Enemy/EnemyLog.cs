@@ -8,10 +8,6 @@ public class EnemyLog : Enemy
     [HideInInspector] public Rigidbody2D enemyBody;
     [HideInInspector] public Animator logAnimator;
 
-    //public Transform homePosition;
-
-    public GameObject deathEffect;
-
     public float chaseRadius;
     public float attackRadius;
 
@@ -105,10 +101,17 @@ public class EnemyLog : Enemy
         {
             DeathEffect();
 
+            if (roomEnemyDead)
+            {
+                roomEnemyDead.Raise();
+            }
+
+            DropLoot();
+
             this.gameObject.SetActive(false);
         }
 
-        if(gameObject.activeInHierarchy == true)
+        if (gameObject.activeInHierarchy == true)
         {
             StartCoroutine(KnockEnemy(knockTime));
         }
@@ -116,22 +119,13 @@ public class EnemyLog : Enemy
 
     IEnumerator KnockEnemy(float knockTime)
     {
-        if(enemyBody != null)
+        if (enemyBody != null)
         {
             yield return new WaitForSeconds(knockTime);
             enemyBody.velocity = Vector2.zero;
 
             currentState = EnemyState.idle;
             enemyBody.velocity = Vector2.zero;
-        }
-    }
-
-    private void DeathEffect()
-    {
-        if (deathEffect != null)
-        {
-            GameObject effect = Instantiate(deathEffect, transform.position, Quaternion.identity);
-            Destroy(effect, 1f);
         }
     }
 }

@@ -46,7 +46,7 @@ public class PatrolLog : EnemyLog
     {
         if(currentPoint == points.Length - 1)
         {
-            currentPoint--;
+            currentPoint = 0;
         }
         else
         {

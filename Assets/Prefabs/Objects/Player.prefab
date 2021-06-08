@@ -357,8 +357,11 @@ MonoBehaviour:
   speed: 4
   currentState: 0
   playerHealthSignal: {fileID: 11400000, guid: ea885cf4a19d1844a9120bd67d462649, type: 2}
+  playerHit: {fileID: 11400000, guid: 66a076cac6cd621438901352cdf1b08a, type: 2}
   currentHealth: {fileID: 11400000, guid: bec9f1d53e8767a48b4a0e759f609173, type: 2}
   startingPosition: {fileID: 11400000, guid: e4e74574cd7dbd948bdd04b2e9250dd7, type: 2}
+  playerInventory: {fileID: 11400000, guid: 73bdc2aeb65e6e0469832c12ebdd1ef1, type: 2}
+  recievedItemSprite: {fileID: 2986523348015989722}
 --- !u!114 &48088926443017293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -592,6 +595,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7242962750444973926}
   - component: {fileID: 2986523348015989722}
+  - component: {fileID: 1451760917721793027}
   m_Layer: 0
   m_Name: Collectable Item
   m_TagString: Untagged
@@ -607,7 +611,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2928639675561137811}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.488, z: 0}
+  m_LocalPosition: {x: 0, y: 0.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1451760917053861709}
@@ -664,6 +668,34 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1451760917721793027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2928639675561137811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1d54275e9a2b2b4884adbebb70e5668, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  signal: {fileID: 11400000, guid: 87a8bc1b6c51cb94fa10457ebaf14074, type: 2}
+  signalEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1451760917053861708}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+        m_MethodName: RaiseItem
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5638436659250530575
 GameObject:
   m_ObjectHideFlags: 0
