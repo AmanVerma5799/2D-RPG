@@ -10,13 +10,13 @@ public class ShooterLog : EnemyLog
 
     private float fireDelaySeconds;
 
-    private bool canFire;
+    public bool canFire;
 
     private void Update()
     {
         fireDelaySeconds -= Time.deltaTime;
 
-        if(fireDelaySeconds <= 0)
+        if(fireDelaySeconds < 0)
         {
             canFire = true;
             fireDelaySeconds = fireDelay;
@@ -37,7 +37,9 @@ public class ShooterLog : EnemyLog
                 {
                     GameObject currentProjectile = Instantiate(rockProjectile, transform.position, Quaternion.identity);
                     currentProjectile.GetComponent<Projectile>().Launch(tempVector);
+                    Debug.Log("Fired");
                     canFire = false;
+                    Debug.Log("Set False");
                 }
 
                 ChangeState(EnemyState.walk);

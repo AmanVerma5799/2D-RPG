@@ -22,16 +22,17 @@ public class TreasureChest : Interactables
     private void Awake()
     {
         chestAnimator = GetComponentInParent<Animator>();
+
+        isOpen = alreadyOpened.runtimeValue;
+
+        if (isOpen)
+        {
+            chestAnimator.SetBool("isOpened", true);
+        }
     }
 
     private void Start()
     {
-        isOpen = alreadyOpened.runtimeValue;
-
-        if(isOpen)
-        {
-            chestAnimator.SetBool("isOpened", true);
-        }
     }
 
     private void Update()

@@ -20,6 +20,8 @@ public class PlayerMovement : MonoBehaviour
     public VectorValue startingPosition;
     public Inventory playerInventory;
 
+    public GameObject arrow;
+
     public SpriteRenderer recievedItemSprite;
 
     private Vector3 moveVector;
@@ -52,6 +54,11 @@ public class PlayerMovement : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Space) && currentState != PlayerState.attack && currentState != PlayerState.stagger)
         {
             StartCoroutine(Attack());
+        }
+
+        else if(Input.GetKeyDown(KeyCode.M) && currentState != PlayerState.attack && currentState != PlayerState.stagger)
+        {
+            StartCoroutine(BowAttack());
         }
     }
 
@@ -115,6 +122,36 @@ public class PlayerMovement : MonoBehaviour
         {
             currentState = PlayerState.walk;
         }
+    }
+
+    private IEnumerator BowAttack()
+    {
+        currentState = PlayerState.attack;
+        yield return null;
+
+        SpawnArrow();
+
+        yield return new WaitForSeconds(0.3f);
+
+        if (currentState != PlayerState.interact)
+        {
+            currentState = PlayerState.walk;
+        }
+    }
+
+    private void SpawnArrow()
+    {
+        Vector2 tempVector = new Vector2(playerAnimator.GetFloat("moveX"), playerAnimator.GetFloat("moveY"));
+
+        Arrow thisArrow = Instantiate(arrow, transform.position, Quaternion.identity).GetComponent<Arrow>();
+
+        thisArrow.Setup(tempVector, ChooseArrowDirection());
+    }
+
+    Vector3 ChooseArrowDirection()
+    {
+        float temp = Mathf.Atan2(playerAnimator.GetFloat("moveY"), playerAnimator.GetFloat("moveX")) * Mathf.Rad2Deg;
+        return new Vector3(0, 0, temp);
     }
 
     public void PlayerCoroutine(float knockTime, float damage)
