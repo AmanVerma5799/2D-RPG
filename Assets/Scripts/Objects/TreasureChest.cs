@@ -19,6 +19,11 @@ public class TreasureChest : Interactables
 
     private Animator chestAnimator;
 
+    public FloatValue heartContainer;
+    public FloatValue playerHealth;
+
+    public Signal healthSignal;
+
     private void Awake()
     {
         chestAnimator = GetComponentInParent<Animator>();
@@ -66,6 +71,11 @@ public class TreasureChest : Interactables
         isOpen = true;
 
         alreadyOpened.runtimeValue = isOpen;
+
+        if(healthSignal && heartContainer)
+        {
+            CheckForContainer();
+        }
     }
 
     public void ChestOpened()
@@ -73,6 +83,17 @@ public class TreasureChest : Interactables
         dialogueBox.SetActive(false);
 
         raiseItem.Raise();
+    }
+
+    public void CheckForContainer()
+    {
+        if(playerInventory.CheckForItem(content))
+        {
+            heartContainer.runtimeValue += 1;
+            playerHealth.runtimeValue = heartContainer.runtimeValue * 2;
+
+            healthSignal.Raise();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)

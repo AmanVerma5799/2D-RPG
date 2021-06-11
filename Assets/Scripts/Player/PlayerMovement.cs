@@ -15,12 +15,14 @@ public class PlayerMovement : MonoBehaviour
 
     public Signal playerHealthSignal;
     public Signal playerHit;
+    public Signal decreaseMagic;
 
     public FloatValue currentHealth;
     public VectorValue startingPosition;
     public Inventory playerInventory;
 
-    public GameObject arrow;
+    public GameObject arrow, magicUI;
+    public Item bow;
 
     public SpriteRenderer recievedItemSprite;
 
@@ -40,6 +42,8 @@ public class PlayerMovement : MonoBehaviour
         playerAnimator.SetFloat("moveY", -1);
 
         transform.position = startingPosition.initialValue;
+
+        magicUI.SetActive(false);
     }
 
     void Update()
@@ -58,7 +62,15 @@ public class PlayerMovement : MonoBehaviour
 
         else if(Input.GetKeyDown(KeyCode.M) && currentState != PlayerState.attack && currentState != PlayerState.stagger)
         {
-            StartCoroutine(BowAttack());
+            if(playerInventory.CheckForItem(bow))
+            {
+                StartCoroutine(BowAttack());
+            }
+        }
+
+        if(playerInventory.CheckForItem(bow))
+        {
+            magicUI.SetActive(true);
         }
     }
 
@@ -69,6 +81,9 @@ public class PlayerMovement : MonoBehaviour
             if (moveVector != Vector3.zero)
             {
                 MovePlayer();
+
+                moveVector.x = Mathf.Round(moveVector.x);
+                moveVector.y = Mathf.Round(moveVector.y);
 
                 playerAnimator.SetFloat("moveX", moveVector.x);
                 playerAnimator.SetFloat("moveY", moveVector.y);
@@ -141,11 +156,16 @@ public class PlayerMovement : MonoBehaviour
 
     private void SpawnArrow()
     {
-        Vector2 tempVector = new Vector2(playerAnimator.GetFloat("moveX"), playerAnimator.GetFloat("moveY"));
+        if(playerInventory.currentMagic > 0)
+        {
+            Vector2 tempVector = new Vector2(playerAnimator.GetFloat("moveX"), playerAnimator.GetFloat("moveY"));
 
-        Arrow thisArrow = Instantiate(arrow, transform.position, Quaternion.identity).GetComponent<Arrow>();
+            Arrow thisArrow = Instantiate(arrow, transform.position, Quaternion.identity).GetComponent<Arrow>();
 
-        thisArrow.Setup(tempVector, ChooseArrowDirection());
+            thisArrow.Setup(tempVector, ChooseArrowDirection());
+
+            decreaseMagic.Raise();
+        }
     }
 
     Vector3 ChooseArrowDirection()

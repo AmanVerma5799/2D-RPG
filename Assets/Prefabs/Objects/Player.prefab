@@ -172,7 +172,8 @@ GameObject:
   - component: {fileID: 48088926443017293}
   - component: {fileID: 4353482639883512798}
   - component: {fileID: 473769303396008959}
-  m_Layer: 0
+  - component: {fileID: 1117623163}
+  m_Layer: 8
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -358,9 +359,13 @@ MonoBehaviour:
   currentState: 0
   playerHealthSignal: {fileID: 11400000, guid: ea885cf4a19d1844a9120bd67d462649, type: 2}
   playerHit: {fileID: 11400000, guid: 66a076cac6cd621438901352cdf1b08a, type: 2}
+  decreaseMagic: {fileID: 11400000, guid: 69e7a198b282e0944be32a1f27289d44, type: 2}
   currentHealth: {fileID: 11400000, guid: bec9f1d53e8767a48b4a0e759f609173, type: 2}
   startingPosition: {fileID: 11400000, guid: e4e74574cd7dbd948bdd04b2e9250dd7, type: 2}
   playerInventory: {fileID: 11400000, guid: 73bdc2aeb65e6e0469832c12ebdd1ef1, type: 2}
+  arrow: {fileID: 3848608928833417087, guid: a5fa11437029ebf4a9143630bae063c9, type: 3}
+  magicUI: {fileID: 0}
+  bow: {fileID: 11400000, guid: d739df2ca682fdf47813abb52ee90553, type: 2}
   recievedItemSprite: {fileID: 2986523348015989722}
 --- !u!114 &48088926443017293
 MonoBehaviour:
@@ -431,6 +436,55 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1117623163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1451760917053861702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd438dd108a0f284aa931a2da434f1d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ImpulseDefinition:
+    m_ImpulseChannel: 1
+    m_RawSignal: {fileID: 11400000, guid: 5ccb7bef877735b41bc38f9c93d4bfaf, type: 2}
+    m_AmplitudeGain: 1
+    m_FrequencyGain: 1
+    m_RepeatMode: 0
+    m_Randomize: 1
+    m_TimeEnvelope:
+      m_AttackShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_DecayShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_AttackTime: 0
+      m_SustainTime: 0.2
+      m_DecayTime: 0.7
+      m_ScaleWithImpact: 1
+      m_HoldForever: 0
+    m_ImpactRadius: 100
+    m_DirectionMode: 0
+    m_DissipationMode: 2
+    m_DissipationDistance: 1000
+    m_PropagationSpeed: 343
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 72
+  m_IgnoreTag: 
+  m_UseImpactDirection: 0
+  m_ScaleImpactWithMass: 0
+  m_ScaleImpactWithSpeed: 0
 --- !u!1 &1451760917121950847
 GameObject:
   m_ObjectHideFlags: 0

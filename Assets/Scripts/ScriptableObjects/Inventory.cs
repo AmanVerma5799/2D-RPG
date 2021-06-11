@@ -11,6 +11,18 @@ public class Inventory : ScriptableObject
 
     public int numberOfKeys, coins;
 
+    public float maxMagic = 10f;
+    public float currentMagic;
+
+    public bool CheckForItem(Item item)
+    {
+        if(items.Contains(item))
+        {
+            return true;
+        }
+        return false;
+    }
+
     public void AddItem(Item itemToAdd)
     {
         if(itemToAdd.isKey)

@@ -6,7 +6,8 @@ public class Pot : MonoBehaviour
 {
     private Animator potAnimator;
 
-    //public GameObject coin;
+    public LootTable potLoot;
+
 
     void Awake()
     {
@@ -17,14 +18,26 @@ public class Pot : MonoBehaviour
     {
         potAnimator.SetBool("smash", true);
 
-        //GameObject coinDrop = Instantiate(coin, transform.position + buffer, Quaternion.identity);
-
         StartCoroutine(DisableObject());
+        DropLoot();
     }
 
     IEnumerator DisableObject()
     {
         yield return new WaitForSeconds(1f);
         gameObject.SetActive(false);
+    }
+
+    public void DropLoot()
+    {
+        if(potLoot)
+        {
+            PowerUps current = potLoot.LootPowerups();
+
+            if(current)
+            {
+                Instantiate(current.gameObject, transform.position, Quaternion.identity);
+            }
+        }
     }
 }

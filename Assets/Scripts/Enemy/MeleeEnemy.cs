@@ -15,7 +15,7 @@ public class MeleeEnemy : EnemyLog
 
         if (distance <= chaseRadius && distance > attackRadius)
         {
-            if (currentState == EnemyState.idle || currentState == EnemyState.walk && currentState != EnemyState.stagger)
+            if (currentState == EnemyState.idle || currentState == EnemyState.walk && currentState != EnemyState.stagger && target.gameObject.activeInHierarchy)
             {
                 Vector3 moveVector = Vector3.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
                 enemyBody.MovePosition(moveVector);
@@ -28,7 +28,7 @@ public class MeleeEnemy : EnemyLog
 
         else if (distance <= chaseRadius && distance <= attackRadius)
         {
-            if (currentState == EnemyState.idle || currentState == EnemyState.walk && currentState != EnemyState.stagger)
+            if (currentState == EnemyState.idle || currentState == EnemyState.walk && currentState != EnemyState.stagger && target.gameObject.activeInHierarchy)
             {
                 StartCoroutine(MeleeAttackCoroutine());
             }
@@ -46,7 +46,7 @@ public class MeleeEnemy : EnemyLog
         ChangeState(EnemyState.attack);
         logAnimator.SetBool("isAttacking", true);
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.2f);
 
         ChangeState(EnemyState.walk);
         logAnimator.SetBool("isAttacking", false);
